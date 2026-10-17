@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#07100c">
+  <title>TIMELESS — Highway Racing</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game">
+    <canvas id="world"></canvas>
+
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <div class="speed-lines" id="speed-lines"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-icon"><i></i><i></i></span>
+        <span>TIMELESS</span>
+      </a>
+
+      <div class="top-actions">
+        <span class="live"><i></i> HIGHWAY RUN</span>
+        <button id="settings-open" class="round-button" aria-label="Settings">⚙</button>
+        <button id="pause" class="round-button" aria-label="Pause">Ⅱ</button>
+      </div>
+    </header>
+
+    <section class="hud">
+      <div class="hud-left">
+        <div class="label">DISTANCE</div>
+        <div class="distance"><span id="distance">0.0</span><small>KM</small></div>
+        <div class="separator"></div>
+        <div class="label">SCORE</div>
+        <div class="score" id="score">000000</div>
+      </div>
+
+      <div class="hud-center">
+        <div class="label">GEAR</div>
+        <div class="gear" id="gear">1</div>
+        <div class="rpm"><span id="rpm"></span></div>
+      </div>
+
+      <div class="hud-right">
+        <div class="speed">
+          <span id="speed">000</span>
+          <small>KM/H</small>
+        </div>
+        <div class="speed-status" id="speed-status">READY</div>
+      </div>
+    </section>
+
+    <section class="intro" id="intro">
+      <div class="eyebrow" id="eyebrow">THE OPEN ROAD / 001</div>
+      <h1 id="headline">Find your<br><em>own line.</em></h1>
+      <p id="description">No finish line. Just the road ahead.</p>
+      <button id="start" class="primary">
+        <span>START ENGINE</span><b>↗</b>
+      </button>
+      <div class="help">WASD / ARROWS TO DRIVE <span>·</span> SPACE TO BRAKE</div>
+    </section>
+
+    <section id="pause-panel" class="panel hidden">
+      <div class="eyebrow">TIMELESS / PAUSED</div>
+      <h2>Take a<br><em>breath.</em></h2>
+      <p>The highway will still be here.</p>
+      <button id="resume" class="primary wide">
+        <span>RESUME DRIVE</span><b>↗</b>
+      </button>
+      <button id="restart" class="text-button">RESTART RUN</button>
+    </section>
+
+    <section id="settings" class="panel settings hidden">
+      <div class="settings-heading">
+        <div>
+          <div class="eyebrow">PREFERENCES</div>
+          <h2>Make it<br><em>yours.</em></h2>
+        </div>
+        <button id="settings-close" class="round-button">×</button>
+      </div>
+
+      <label class="setting">
+        <span><strong>Graphics quality</strong><small>Choose a performance level</small></span>
+        <select id="quality">
+          <option value="low">Performance</option>
+          <option value="medium" selected>Balanced</option>
+          <option value="high">High</option>
+          <option value="ultra">High resolution</option>
+        </select>
+      </label>
+
+      <label class="setting">
+        <span><strong>Camera shake</strong><small>Subtle movement at speed</small></span>
+        <input type="checkbox" id="shake" checked>
+      </label>
+
+      <label class="setting">
+        <span><strong>Speed effects</strong><small>Motion accents at high speed</small></span>
+        <input type="checkbox" id="effects" checked>
+      </label>
+
+      <div class="asset-note">
+        <strong>TIMELESS / ASSETS</strong>
+        <p>Procedural 3D models keep the game self-contained. Explore
+          <a href="https://polyhaven.com/" target="_blank" rel="noreferrer">Poly Haven</a>,
+          <a href="https://ambientcg.com/" target="_blank" rel="noreferrer">ambientCG</a>,
+          and <a href="https://kenney.nl/assets" target="_blank" rel="noreferrer">Kenney</a>
+          for optional licensed assets.
+        </p>
+      </div>
+
+      <button id="settings-done" class="primary wide">
+        <span>BACK TO ROAD</span><b>↗</b>
+      </button>
+    </section>
+
+    <footer class="footer">
+      <div><i></i><span id="status">SYSTEM READY</span><span class="slash">/</span> BUILD 001</div>
+      <div class="footer-right">ABS <i></i> TRACTION <i></i></div>
+    </footer>
+
+    <div id="touch-controls" class="touch-controls">
+      <div class="touch-group">
+        <button data-control="left" aria-label="Steer left">‹</button>
+        <button data-control="right" aria-label="Steer right">›</button>
+      </div>
+      <div class="touch-group">
+        <button class="brake" data-control="brake">BRAKE</button>
+        <button class="accelerate" data-control="accelerate">GO</button>
+      </div>
+    </div>
+
+    <div class="loading" id="loading">
+      <div class="loading-brand">
+        <span class="brand-icon"><i></i><i></i></span> TIMELESS
+      </div>
+      <div class="loading-track"><span id="loading-bar"></span></div>
+      <p id="loading-text">BUILDING THE ROAD</p>
+    </div>
+  </main>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
